@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useStateContext } from '../context/ContextProvider'
@@ -29,6 +29,13 @@ export default function Home() {
             setUserToken(null)
         })
     }
+
+    useEffect(() => {
+        axiosClient.get('/me')
+            .then(({data}) => {
+                setCurrentUser(data)
+            })
+    }, [])
 
   return (
     <div className="bg-white">
